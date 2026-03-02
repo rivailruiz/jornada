@@ -11,6 +11,14 @@ const navItems = [
   { label: "Profile", href: "/profile" }
 ];
 
+function getRouteIndex(pathname: string | null) {
+  const routeIndex = navItems.findIndex((item) =>
+    item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href)
+  );
+
+  return routeIndex >= 0 ? routeIndex : 0;
+}
+
 function PinIcon() {
   return (
     <svg
@@ -29,7 +37,7 @@ function PinIcon() {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(() => getRouteIndex(pathname));
   const [highlightStyle, setHighlightStyle] = useState({
     x: 0,
     y: 0,
@@ -41,11 +49,7 @@ export default function Navbar() {
   const buttonRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
-    const routeIndex = navItems.findIndex((item) =>
-      item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
-    );
-
-    setActiveIndex(routeIndex >= 0 ? routeIndex : 0);
+    setActiveIndex(getRouteIndex(pathname));
   }, [pathname]);
 
   const moveHighlight = (index: number, immediate = false) => {

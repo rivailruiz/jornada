@@ -99,7 +99,6 @@ export default function ProfilePage() {
   return (
     <div ref={rootRef} className="relative min-h-screen overflow-x-hidden">
       <Navbar />
-
       <main className="relative mx-auto max-w-[1440px] px-4 pb-20 pt-28 sm:px-6 lg:px-8 lg:pt-32">
         <div className="space-y-6 p-1 sm:p-2 lg:p-4">
           <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
